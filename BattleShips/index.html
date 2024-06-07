@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battleship Game</title>
+    <style>
+        /* CSS styles for the game board */
+        .board {
+            display: grid;
+            grid-template-columns: repeat(10, 30px);
+            grid-template-rows: repeat(10, 30px);
+            gap: 2px;
+            border: 1px solid #000;
+        }
+
+        .cell {
+            width: 30px;
+            height: 30px;
+            background-color: #ccc;
+        }
+
+        .ship {
+            background-color: #333;
+        }
+
+        .hit {
+            background-color: #f00;
+        }
+
+        .sunk {
+            background-color: #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="board" id="board"></div>
+    <script src="./app.js" ></script>
+</body>
+</html>
