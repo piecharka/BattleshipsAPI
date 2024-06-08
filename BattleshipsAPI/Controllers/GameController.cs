@@ -28,9 +28,12 @@ namespace BattleshipsAPI
             _channel = _connection.CreateModel();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> SendMessage(string queueName, [FromBody] string message)
+        [HttpPost("send")]
+        public async Task<IActionResult> SendMessage(string queueName,[FromBody] Move move)
         {
+            Console.WriteLine(queueName);
+            Console.WriteLine(move.X);
+            Console.WriteLine(move.Y);
             try
             {
                 _channel.QueueDeclare(queue: queueName,
@@ -39,7 +42,7 @@ namespace BattleshipsAPI
                                      autoDelete: false,
                                      arguments: null);
 
-                var body = Encoding.UTF8.GetBytes(message);
+                var body = Encoding.UTF8.GetBytes(move.ToString());
 
                 _channel.BasicPublish(exchange: "",
                                      routingKey: queueName,

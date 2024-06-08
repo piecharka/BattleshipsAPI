@@ -1,18 +1,20 @@
-function sendMove(move) {
-    fetch('https://localhost:7130/api/game/send', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(move)
-    })
-        .then(response => response.json())
-        .then(data => console.log('Move sent:', data))
-        .catch(error => console.error('Error sending move:', error));
+async function sendMove(move) {
+    try {
+        const response = await fetch('https://localhost:7130/api/game/send?queueName=move', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(move)
+        });
+    } catch (error) {
+        console.error('Error sending move:', error);
+    }
 }
 
+
 function receiveMoves() {
-    fetch('https://localhost:7130/api/game/receive')
+    fetch('https://localhost:7130/api/game/receive/')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to receive moves');
@@ -45,7 +47,9 @@ function receiveMoves() {
 }
 
 // Przyk³ad wysy³ania ruchu
-sendMove({ player: 'Player1', x: 3, y: 5 });
+sendMove({ playerName: 'Player1', x: 3, y: 5 })
+
+sendMove({ playerName: 'Player2', x: 2, y: 1 })
 
 // Przyk³ad odbierania ruchów
 receiveMoves();
